@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            position: relative; /* Ensure body is relatively positioned */
+            min-height: 100vh; /* Set minimum height to full viewport height */
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #444;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .dog {
+            position: fixed;
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
+            transform: translate(-50%, -50%); /* Center both vertically and horizontally */
+            animation: dogAnimation 5s linear infinite;
+        }
+        @keyframes dogAnimation {
+            0% { transform: translate(-50%, -50%); }
+            25% { transform: translate(25%, -50%); }
+            50% { transform: translate(25%, 50%); }
+            75% { transform: translate(-50%, 50%); }
+            100% { transform: translate(-50%, -50%); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to your Home Away From Home</h1>
+    </header>
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <main>
+        <h2>About Us</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod nulla vitae enim sodales, vel condimentum ipsum tincidunt.</p>
+        <h2>Our Services</h2>
+        <ul>
+            <li>Service 1</li>
+            <li>Service 2</li>
+            <li>Service 3</li>
+        </ul>
+        <h1 id="timer"></h1>
+        <h2><a href="booking.html">Book Your Stay Now</a></h2>
+    </main>
+    <footer>
+        <p>&copy; 2024 My Website. All Rights Reserved.</p>
+    </footer>
+    <img src="https://i.ibb.co/RYK3NfX/dog.png" class="dog">
+
+    <script>
+        function countdownTimer(minutes) {
+            let timerElement = document.getElementById('timer');
+            let seconds = minutes * 60; // Convert minutes to seconds
+            let interval = setInterval(function() {
+                if (seconds < 0) {
+                    clearInterval(interval);
+                } else {
+                    let minutesRemaining = Math.floor(seconds / 60);
+                    let secondsRemaining = seconds % 60;
+                    timerElement.textContent = padZeroes(minutesRemaining) + ':' + padZeroes(secondsRemaining);
+                    seconds--;
+                }
+            }, 1000);
+        }
+
+        function padZeroes(number) {
+            return (number < 10 ? '0' : '') + number;
+        }
+
+        countdownTimer(45); // Start a 45-minute countdown
+    </script>
+</body>
+</html>

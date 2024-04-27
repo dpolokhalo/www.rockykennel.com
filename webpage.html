@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            position: relative; /* Ensure body is relatively positioned */
+            min-height: 100vh; /* Set minimum height to full viewport height */
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            position: relative; /* Ensure header is relatively positioned */
+        }
+        nav {
+            background-color: #444;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow-y: auto; /* Enable vertical scrolling */
+            max-height: calc(100vh - 200px); /* Set max height to viewport height minus header, nav, and footer heights */
+            position: relative; /* Ensure main is relatively positioned */
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .dog {
+            position: absolute;
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
+            transform: translate(-50%, -50%); /* Center both vertically and horizontally */
+            animation: dogAnimation 5s linear infinite;
+        }
+        @keyframes dogAnimation {
+            0% { transform: translate(-50%, -50%); }
+            25% { transform: translate(25%, -50%); }
+            50% { transform: translate(25%, 50%); }
+            75% { transform: translate(-50%, 50%); }
+            100% { transform: translate(-50%, -50%); }
+        }
+        .countdown {
+            display: inline-block;
+            border: 2px solid #f7f3f3;
+            border-radius: 5px;
+            padding: 10px;
+            font-style: italic;
+            color: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .book-now {
+            position: absolute;
+            top: 40px; /* Adjust top position as needed */
+            left: 20px; /* Adjust left position as needed */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to your Home Away From Home</h1>
+        <div class="countdown" id="timer"></div>
+        <div class="book-now">
+            <h2><a href="booking.html">Book Your Stay Now</a></h2>
+        </div>
+    </header>
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <main>
+        <h2>About Us</h2>
+        <p>
+            Welcome to the best and most friendly dog kennel in East Stroudsburg, PA! Our kennel is run by a passionate dog owner who has a deep love for pets. We understand that your furry friends are more than just animals; they are beloved members of your family. That's why we provide a safe and loving environment for your pets, ensuring they receive the care and attention they deserve. Whether your dog is staying with us for a day or a week, we treat them like one of our own, giving them plenty of playtime, exercise, and affection. Your pet's happiness and well-being are our top priorities, and we strive to make their stay with us as comfortable and enjoyable as possible.</p>
+        <h2>Our Services</h2>
+        <ul>
+            <li>Service 1</li>
+            <li>Service 2</li>
+            <li>Service 3</li>
+        </ul>
+    </main>
+    <footer>
+        <p>&copy; 2024 My Website. All Rights Reserved.</p>
+    </footer>
+    <img src="https://ibb.co/3MVBkzd">
+
+    <script>
+        function countdownTimer(minutes) {
+            let timerElement = document.getElementById('timer');
+            let remainingSeconds = sessionStorage.getItem('remainingSeconds');
+            let seconds;
+            if (remainingSeconds) {
+                seconds = remainingSeconds;
+            } else {
+                seconds = minutes * 60; // Convert minutes to seconds
+                sessionStorage.setItem('initialSeconds', seconds);
+            }
+
+            let interval = setInterval(function() {
+                if (seconds < 0) {
+                    clearInterval(interval);
+                } else {
+                    let minutesRemaining = Math.floor(seconds / 60);
+                    let secondsRemaining = seconds % 60;
+                    timerElement.textContent = padZeroes(minutesRemaining) + ':' + padZeroes(secondsRemaining);
+                    seconds--;
+                    sessionStorage.setItem('remainingSeconds', seconds);
+                }
+            }, 1000);
+        }
+
+        function padZeroes(number) {
+            return (number < 10 ? '0' : '') + number;
+        }
+
+        countdownTimer(45); // Start a 45-minute countdown
+    </script>
+</body>
+</html>

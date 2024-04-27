@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            position: relative; /* Ensure body is relatively positioned */
+            min-height: 100vh; /* Set minimum height to full viewport height */
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #444;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .dog {
+            position: fixed;
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
+            transform: translate(-50%, -50%); /* Center both vertically and horizontally */
+            animation: dogAnimation 5s linear infinite alternate; /* Make the animation alternate back and forth */
+        }
+        @keyframes dogAnimation {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            25% { transform: translate(25%, -50%) rotate(45deg); }
+            50% { transform: translate(25%, 50%) rotate(0deg); }
+            75% { transform: translate(-50%, 50%) rotate(-45deg); }
+            100% { transform: translate(-50%, -50%) rotate(0deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Rocky Way Kennel and Serices</h1>
+    </header>
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <main>
+        <h2>About Us</h2>
+        <p>Owned by dedicated pet lovers, we strive to create a home away from home experience for your furry friends.</p>
+        <h2>Our Services</h2>
+        <ul>
+            <li>Dog Boarding: Providing a comfortable and safe environment for your dog to stay while you're away.</li>
+            <li>Dog Daycare: Offering supervised playtime, socialization, and exercise for your dog during the day.</li>
+            <li>Dog Grooming: Keeping your dog looking and feeling their best with professional grooming services.</li>
+        </ul>
+        <h1 id="timer"></h1>
+        <h2><a href="booking.html">Book Your Stay Now</a></h2>
+    </main>
+    <footer>
+        <p>&copy; 2024 Rocky Way. All Rights Reserved.</p>
+    </footer>
+    <img src="https://i.ibb.co/NmfZ7SC/97-E81021-E7-A8-4-C35-91-E9-572-B0-F0-E8-A41-removebg-preview.png" class="dog">
+    <script>
+        function countdownTimer(minutes) {
+            let timerElement = document.getElementById('timer');
+            let remainingSeconds = sessionStorage.getItem('remainingSeconds');
+            let seconds;
+            if (remainingSeconds) {
+                seconds = remainingSeconds;
+            } else {
+                seconds = minutes * 60; // Convert minutes to seconds
+                sessionStorage.setItem('initialSeconds', seconds);
+            }
+
+            let interval = setInterval(function() {
+                if (seconds < 0) {
+                    clearInterval(interval);
+                } else {
+                    let minutesRemaining = Math.floor(seconds / 60);
+                    let secondsRemaining = seconds % 60;
+                    timerElement.textContent = padZeroes(minutesRemaining) + ':' + padZeroes(secondsRemaining);
+                    seconds--;
+                    sessionStorage.setItem('remainingSeconds', seconds);
+                }
+            }, 1000);
+        }
+
+        function padZeroes(number) {
+            return (number < 10 ? '0' : '') + number;
+        }
+
+        countdownTimer(45); // Start a 45-minute countdown
+    </script>
+</body>
+</html>
